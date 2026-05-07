@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><title>AI-Based Answer Evaluation System</title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 10px;
+        }
+
+        .bar {
+            background: #ddd;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .fill {
+            background: #667eea;
+            color: white;
+            padding: 5px;
+            border-radius: 10px;
+            width: 0%;
+            text-align: center;
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📝 AI-Based Answer Evaluation System</h2>
+
+    <form action="/evaluate" method="post">
+        <textarea name="model" placeholder="Enter model answer..." required></textarea>
+        <textarea name="student" placeholder="Enter student answer..." required></textarea>
+        <button type="submit">Evaluate</button>
+    </form>
+
+    {% if score %}
+    <div class="result">
+        <h3>Score: {{ score }} / 10</h3>
+        <p>Similarity: {{ percentage }}%</p>
+
+        <div class="bar">
+            <div class="fill" id="progressBar">
+                {{ percentage }}%
+            </div>
+        </div>
+
+        <p><b>Feedback:</b> {{ feedback }}</p>
+    </div>
+
+    <script>
+    let bar = document.getElementById("progressBar");
+    let percentage = bar.getAttribute("data-percentage") || 0;
+    bar.style.width = percentage + "%";
+</script>
+    {% endif %}
+</div>
+
+</body>
+</html>
